@@ -49,22 +49,3 @@ Definition Sq  ( p : P_S ) := sq Top p.
 
 
 
-
-(**
-
-Definition M: Type := S -> Prop.
-
-Parameter modal : (S -> M) -> M -> M.
-
-Definition Top (s: S) (t:S) := True = True.
-
-Definition Bot (s:S)  (t:S) := not (True = True).
-
-Definition Mequals (a:M) (b:M) := fun s : S =>  (a s) = (b s).
-
-Parameter Mforall: forall (T: Type), (T -> M) -> M.
-
-Definition equals (T: Type) (x: T) (y : T) : M :=  Mforall (T -> M) (fun (z : T -> M) => Mequals (z x) (z y)).
-
- **)
- 
