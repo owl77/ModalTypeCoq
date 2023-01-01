@@ -1,12 +1,12 @@
 
 
-Definition Unique (X: Set) ( p : X -> Prop) :=   exists x : X, and (p x) (forall  y : X,  p y -> (x = y)).
+Definition Unique (X: Type) ( p : X -> Prop) :=   exists x : X, and (p x) (forall  y : X,  p y -> (x = y)).
 
-Axiom the : forall (X: Set) (p : X -> Prop),  Unique X p -> X.
+Axiom the : forall (X: Type) (p : X -> Prop),  Unique X p -> X.
 
-Axiom the_def : forall (X: Set) (p : X -> Prop) (e :Unique X p),  p ( (the X p) e ).
+Axiom the_def : forall (X: Type) (p : X -> Prop) (e :Unique X p),  p ( (the X p) e ).
 
-Theorem  uni : forall ( X: Set) (p : X -> Prop) (e : Unique X p) ( y : X), p y -> y = the X p e.
+Theorem  uni : forall ( X: Type) (p : X -> Prop) (e : Unique X p) ( y : X), p y -> y = the X p e.
 Proof.
 (intros **).
 (pose proof the_def).
