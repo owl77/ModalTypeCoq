@@ -93,7 +93,75 @@ exact H0.
 Qed.
 
 
+Axiom P_min : forall (x: M) (p : M -> Prop), ( P x (Sup p) /\ not (Min x)) -> exists k :M,
+(P k x /\ not (Min k) /\ exists z:M, P k z /\ p z  ).
 
+Parameter w : M.
+
+Definition T ( t : M) := forall y : M, P y t.
+
+Definition QC (t : M) := forall y : M,  P t y -> ( y = t \/ T y ).
+
+Axiom P_w : QC w.
+
+
+Definition top := Sup (fun (x : M) => True).
+
+
+Theorem t_un : Unique M (fun (x : M) =>  forall y: M, P y x).
+Proof.
+(unfold Unique).
+(cut
+  ((forall y : M, P y top) /\
+   (forall y : M, (forall y0 : M, P y0 y) -> top = y))).
+ intro.
+ (pose proof
+   (Logic.ex_intro
+      (fun x : M =>
+       (forall y : M, P y x) /\
+       (forall y : M, (forall y0 : M, P y0 y) -> x = y)) top H)).
+ exact H0.
+
+ (pose proof (sup_M (fun _ : M => True))).
+
+ (unfold sup).
+ (unfold sup).
+
+ (unfold sup in H).
+ (unfold top).
+ (destruct H).
+ split.
+  intro.
+  (pose proof (H y)).
+  (pose I).
+  (pose proof (H1 t)).
+  exact H2.
+
+  intro.
+  intro.
+  (pose proof (H y)).
+  (pose proof (H2 I)).
+  (pose proof (H0 y)).
+  (cut (forall y0 : M, True -> P y0 y)).
+   (intros **).
+   (intros **).
+   (pose proof (H4 H5)).
+   (pose proof (Logic.conj H6 H3)).
+   (pose proof (P_asym (Sup (fun _ : M => True)) y)).
+   (pose proof (H8 H7)).
+   exact H9.
+
+   intro.
+   intro.
+   (pose proof (H1 y0)).
+   exact H6.
+Qed.
+
+
+Definition top2 := the M (fun (x : M) =>  forall y: M, P y x) t_un.
+ 
+
+(**  Do the same for bottom and k *)
  
 
                                                                                                                                                                                                      
