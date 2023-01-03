@@ -161,7 +161,25 @@ Qed.
 Definition top2 := the M (fun (x : M) =>  forall y: M, P y x) t_un.
  
 
-(**  Do the same for bottom and k *)
- 
+Axiom wt : not (top2 = w).
 
+(**  Do the same for bottom and k *)
+
+ 
+Definition A (x : M) := not (exists y : M, (not (y = x) /\ P y x )).
+
+
+Fixpoint Ah (n : nat) : M -> Prop := 
+ match n with
+  | 0 =>   A
+  | S n => fun (x : M) => ( forall y : M, P y x -> (y = x \/ (Ah n) y) )
+  end.   
+
+Definition Ae ( n : nat) : M -> Prop :=
+ match n with
+  | 0 =>  Ah 0
+  | S n => fun (x : M) => ( ((Ah (S n)) x) /\ not ((Ah n) x) )
+ end.
+
+Axiom hier : forall n : nat, exists x : M, (Ae n) x.
                                                                                                                                                                                                      
